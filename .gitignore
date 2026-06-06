@@ -1,2 +1,6 @@
 DownloadedFiles/
 EclipseJars/
+.settings/
+.classpath
+.project
+.factorypath
