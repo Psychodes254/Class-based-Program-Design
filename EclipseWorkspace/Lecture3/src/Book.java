@@ -32,6 +32,8 @@ class Book {
        
        Methods:
        ... this.salePrice(int) ...   -- int
+       ... this.sameAuthor(Book) ... -- boolean
+       ... this.reducePrice() ...    -- Book
     */
 
     // Compute the sale price of this Book given using 
@@ -43,6 +45,12 @@ class Book {
     // is this book written by the same Author as the given book?
     boolean sameAuthor(Book that) {
       return this.author.sameAuthor(that.author);
+    }
+    
+    // In Book 
+    // produce a book like this one, but with a discount of 20%
+    Book reducePrice() {
+      return new Book(this.title, this.author, this.salePrice(20));
     }
 }
 
@@ -87,7 +95,7 @@ class ExamplesBooks {
     Book htdp = new Book("HtDP", this.pat, 60);
     Book beaches = new Book("Beaches", this.dan, 20);
     Book villain = new Book("Villain", this.justus, 80);
-    Book cbpd = new Book("cbpd", this.pat, 75);
+    Book cbpd = new Book("CPBD", this.pat, 75);
     Book psycho = new Book("Psycho", this.justus, 90);
 
     // test the method salePrice for the class Book
@@ -102,6 +110,20 @@ class ExamplesBooks {
       return t.checkExpect(this.htdp.sameAuthor(this.cbpd), true) &&
              t.checkExpect(this.beaches.sameAuthor(this.villain), false) &&
              t.checkExpect(this.villain.sameAuthor(this.psycho), true);
+    }
+    
+    // test the method reducPrice for the class Book
+    boolean testReducePrice(Tester t) {
+      return t.checkExpect(this.htdp.reducePrice(), 
+                           new Book("HtDP", this.pat, 48)) &&
+             t.checkExpect(this.beaches.reducePrice(), 
+                           new Book("Beaches", this.dan, 16)) &&
+             t.checkExpect(this.villain.reducePrice(), 
+                 new Book("Villain", this.justus, 64)) &&
+             t.checkExpect(this.cbpd.reducePrice(), 
+                 new Book("CPBD", this.pat, 60)) &&
+             t.checkExpect(this.psycho.reducePrice(), 
+                 new Book("Psycho", this.justus, 72));
     }
 
     }
