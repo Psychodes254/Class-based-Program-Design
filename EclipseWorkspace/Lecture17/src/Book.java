@@ -11,6 +11,7 @@ class Book{
         this.price = price;
         this.quantity = quantity;
         this.author = author;
+        this.author.addBook(this);
     }
 
     boolean sameBook(Book other){
@@ -25,29 +26,29 @@ class Book{
 class ExamplesBooks{
     ExamplesBooks(){}
 
-    Author james;
-    Author jkRowling;
-    Book atomic;
-    Book hp1;
+    Author james, jkRowling;
+    Book atomic, hp1, hp2;
+
+    IList<Book> mt = new MtList<Book>();
     
     void initialConditions() {
-      this.james = new Author("James", "Clear", 1986, null);
-      this.jkRowling = new Author("Jk", "Rowling", 1965, null);
-      this.atomic = new Book("Atomic Habits", 15, 1, james);
+      this.james = new Author("James", "Clear", 1986);
+      this.jkRowling = new Author("Jk", "Rowling", 1965);
+      this.atomic = new Book("Atomic Habits", 20, 1, james);
       this.hp1 = new Book("Harry Potter", 15, 1, jkRowling);
+      this.hp2 = new Book("Harry Potter2", 17, 1, jkRowling);
     }
 
     void testSameBook(Tester t){
       initialConditions();
-      james.updateBook(atomic);
-      t.checkExpect(this.james.book, atomic);
-      t.checkExpect(james.book.author, james);
+      t.checkExpect(this.james.books, new ConsList<Book>(atomic, mt));
+      t.checkExpect(this.jkRowling.books, new ConsList<Book>(hp2, new ConsList<Book>(hp1, mt)));
+      
     }
-    
-    void testSameBook2(Tester t){
-      initialConditions();
-      jkRowling.updateBook(hp1);
-      t.checkExpect(this.jkRowling.book, hp1);
-      t.checkExpect(jkRowling.book.author, jkRowling);
-  }
+
+    void testBookAuthors(Tester t){
+     initialConditions();
+     t.checkException(new RuntimeException("Book was not written by this author!"),
+         this.jkRowling, "addBook", this.atomic);
+    }
 } 

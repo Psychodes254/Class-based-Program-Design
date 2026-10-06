@@ -2,13 +2,13 @@ class Author{
     String first;
     String last;
     int yob;
-    Book book;
+    IList<Book> books;
 
-    Author(String first, String last, int yob, Book book){
+    Author(String first, String last, int yob){
         this.first = first;
         this.last = last;
         this.yob = yob;
-        this.book = book;
+        this.books = new MtList<Book>();
     }
 
     boolean sameAuthor(Author other){
@@ -17,7 +17,12 @@ class Author{
                this.yob == other.yob;
     }
     
-    void updateBook(Book b) {
-      this.book = b;
+    void addBook(Book b) {
+        if (!b.author.sameAuthor(this)){
+            throw new RuntimeException("Book was not written by this author!");
+        }
+        else{
+            this.books = new ConsList<Book>(b, this.books);
+        }
     }
 }
