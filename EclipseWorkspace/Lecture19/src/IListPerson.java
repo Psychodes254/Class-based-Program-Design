@@ -5,6 +5,9 @@ interface ILoPerson{
     // Finds the person in this list with the given name and returns their phone
     // number, or -1 if no such person is found
     int findPhoneNumber(String name);
+
+    // Change the phone number for the person in this list with the given name
+    void changePhoneNumber(String name, int phone);
 }
 
 class MtLoPerson implements ILoPerson{
@@ -16,6 +19,10 @@ class MtLoPerson implements ILoPerson{
 
     public int findPhoneNumber(String name){
         return -1;
+    }
+
+    public void changePhoneNumber(String name, int phone){
+        return;
     }
 }
 
@@ -38,6 +45,15 @@ class ConsLoPerson implements ILoPerson{
         }
         else{
             return this.rest.findPhoneNumber(name);
+        }
+    }
+
+    public void changePhoneNumber(String name, int phone){
+        if (this.first.name.equals(name)){
+            this.first.changeNum(phone);
+        }
+        else{
+            this.rest.changePhoneNumber(name, phone);
         }
     }
 }

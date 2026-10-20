@@ -12,4 +12,8 @@ class Person{
     boolean samePerson(Person that){
         return this.name.equals(that.name) && this.phone == that.phone;
     }
+
+    void changeNum(int newNum){
+        this.phone = newNum;
+    }
 }

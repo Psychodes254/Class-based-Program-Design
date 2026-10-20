@@ -47,4 +47,18 @@ class ExamplesPhoneLists{
         t.checkExpect(this.family.findPhoneNumber("Vincent"), 7294);
         t.checkExpect(this.work.findPhoneNumber("Brendah"), 9345);
     }
+
+    void testChangePhoneNum(Tester t){
+        this.initialData();
+        t.checkExpect(this.keysha.phone, 91302);
+        keysha.changeNum(51406);
+        t.checkExpect(this.keysha.phone, 51406);
+    }
+
+    void testChangePhoneList(Tester t){
+        this.initialData();
+        t.checkExpect(this.friends.findPhoneNumber("Jack"), 3456);
+        friends.changePhoneNumber("Jack", 228010);
+        t.checkExpect(this.friends.findPhoneNumber("Jack"), 228010);
+    }
 }
