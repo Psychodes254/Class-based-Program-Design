@@ -40,4 +40,11 @@ class ExamplesPhoneLists{
         t.checkExpect(this.friends.contains("Damaris"), false);
         t.checkExpect(this.family.contains("Paul"), false);
     }
+
+    void testFindPhoneNumber(Tester t){
+        this.initialData();
+        t.checkExpect(this.friends.findPhoneNumber("Mash"), 1234);
+        t.checkExpect(this.family.findPhoneNumber("Vincent"), 7294);
+        t.checkExpect(this.work.findPhoneNumber("Brendah"), 9345);
+    }
 }
