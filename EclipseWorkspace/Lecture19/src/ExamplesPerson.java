@@ -61,4 +61,22 @@ class ExamplesPhoneLists{
         friends.changePhoneNumber("Jack", 228010);
         t.checkExpect(this.friends.findPhoneNumber("Jack"), 228010);
     }
+
+    void testAliasing(Tester t){
+    Person kim = new Person("Kim", 20256);
+    Person kim2 = new Person("Kim", 20256);
+
+    // alias kim3 to kim
+    Person kim3 = kim;
+
+    t.checkExpect(kim.samePerson(kim2), true);
+    t.checkExpect(kim3.samePerson(kim), true);
+
+    // modify kim3
+    kim3.name = "Kylian";
+
+    t.checkExpect(kim.samePerson(kim2), false);
+    t.checkExpect(kim3.samePerson(kim), true);
+    t.checkExpect(kim3.samePerson(kim2), false);
+    }
 }
